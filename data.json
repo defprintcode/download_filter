@@ -1,0 +1,107 @@
+[
+  {
+    "name": "inactive",
+    "days": 30,
+    "folder_name": "old"
+  },
+  {
+    "name": "Documents",
+    "path": "Documentos",
+    "extensions": [
+      ".pdf",
+      ".doc",
+      ".docx",
+      ".odx",
+      ".odt",
+      ".txt",
+      ".xls"
+    ]
+  },
+  {
+    "name": "Executables",
+    "path": "Ejecutables",
+    "extensions": [
+      ".exe",
+      ".msi",
+      ".dev"
+    ]
+  },
+  {
+    "name": "images",
+    "path": "Imagenes",
+    "extensions": [
+      ".jpg",
+      ".jpeg",
+      ".png",
+      ".gif",
+      ".raw"
+    ]
+  },
+  {
+    "name": "Videos",
+    "path": "Videos",
+    "extensions": [
+      ".mov",
+      ".mpg",
+      ".mpge",
+      ".mp4",
+      ".avi"
+    ]
+  },
+  {
+    "name": "Audio",
+    "path": "Audio",
+    "extensions": [
+      ".mp3",
+      ".waw",
+      ".midi"
+    ]
+  },
+  {
+    "name": "Isos",
+    "path": "Isos",
+    "extensions": [
+      ".iso"
+    ]
+  },
+  {
+    "name": "Compresed",
+    "path": "Comprimidos",
+    "extensions": [
+      ".rar",
+      ".zip",
+      ".tar",
+      ".7z"
+    ]
+  },
+  {
+    "name": "Torrents",
+    "path": "Torrents",
+    "extensions": [
+      ".torrent"
+    ]
+  },
+  {
+    "name": "Programing",
+    "path": "Programacion",
+    "extensions": [
+      ".js",
+      ".py",
+      ".php",
+      ".json",
+      ".csv",
+      ".html",
+      "htm",
+      ".css",
+      ".min",
+      ".log",
+      ".map"
+    ]
+  },
+  {
+    "name": "other",
+    "path": "otros",
+    "extensions": [".*"]
+  }
+
+]

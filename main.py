@@ -2,76 +2,43 @@ import os
 import time
 import datetime
 import shutil
+import json
 
 
 def readdownload():
+    with open('data.json', 'r') as f:
+        extensions_dic = json.load(f)
+
     home = os.path.expanduser("~")
     folder = os.path.join(home, "Downloads")
-    old = folder + '\old'
-    installers = old + '\Ejecutables'
-    documents = old + '\Documentos'
-    zipped = old + '\Comprimidos'
-    with os.scandir(folder) as ficheros:
-        for fichero in ficheros:
+    old = folder + '\\' + extensions_dic[0]['folder_name']
 
-            if not os.path.isdir(old):
-                os.mkdir(old)
-                print("Creando fichero old")
-            if not os.path.isdir(installers):
-                os.mkdir(installers)
-                print("Creando fichero para instaladores")
-            if not os.path.isdir(documents):
-                os.mkdir(documents)
-                print("Creando fichero para documentos")
-            if not os.path.isdir(zipped):
-                os.mkdir(zipped)
-                print("Creando fichero para comprimidos")
+    for extension in extensions_dic:
 
-            if fichero.name.endswith(".exe") | fichero.name.endswith(".msi"):
-                # fichero.name
-                # Get modified time
-                modified = os.path.getmtime(fichero)
-                x = datetime.datetime.strptime(time.ctime(modified), "%a %b %d %H:%M:%S %Y")
-                y = datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
-                lastime = y - x
+        with os.scandir(folder) as ficheros:
 
-                if lastime > datetime.timedelta(30):
-                    print(fichero.name)
-                    print("Modified")
-                    print(lastime)
-                    shutil.move(folder + '\\' + fichero.name, installers + '\\' + fichero.name)
+            for fichero in ficheros:
 
-            if fichero.name.endswith(".pdf") | fichero.name.endswith(".doc") | fichero.name.endswith(
-                    ".docx") | fichero.name.endswith(".odx"):
-                # fichero.name
-                # Get modified time
+                if extension['name'] != "inactive":
 
-                modified = os.path.getmtime(fichero)
-                x = datetime.datetime.strptime(time.ctime(modified), "%a %b %d %H:%M:%S %Y")
-                y = datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
-                lastime = y - x
+                    if not os.path.isdir(old + '\\' + extension['path']):
+                        os.mkdir(old + '\\' + extension['path'])
+                        print("Making folder for " + extension['name'])
 
-                if lastime > datetime.timedelta(30):
-                    print(fichero.name)
-                    print("Modified")
-                    print(lastime)
-                    shutil.move(folder + '\\' + fichero.name, documents + '\\' + fichero.name)
+                    if fichero.name.endswith(tuple(extension['extensions'])) or extension['name'] == "other":
+                        # fichero.name
+                        # Get modified time
+                        modified = os.path.getmtime(fichero)
+                        x = datetime.datetime.strptime(time.ctime(modified), "%a %b %d %H:%M:%S %Y")
+                        y = datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
+                        lastime = y - x
 
-            if fichero.name.endswith(".zip") | fichero.name.endswith(".rar") | fichero.name.endswith(
-                    ".7zip") | fichero.name.endswith(".odx"):
-                # fichero.name
-                # Get modified time
-
-                modified = os.path.getmtime(fichero)
-                x = datetime.datetime.strptime(time.ctime(modified), "%a %b %d %H:%M:%S %Y")
-                y = datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
-                lastime = y - x
-
-                if lastime > datetime.timedelta(30):
-                    print(fichero.name)
-                    print("Modified")
-                    print(lastime)
-                    shutil.move(folder + '\\' + fichero.name, zipped + '\\' + fichero.name)
+                        if lastime > datetime.timedelta(extensions_dic[0]['days']):
+                            print(fichero.name)
+                            print("Modified")
+                            print(lastime)
+                            shutil.move(folder + '\\' + fichero.name,
+                                        old + '\\' + extension['path'] + '\\' + fichero.name)
 
 
 # Press the green button in the gutter to run the script.
