@@ -2,7 +2,8 @@
   {
     "name": "inactive",
     "days": 30,
-    "folder_name": "old"
+    "folder_name": "old",
+    "replace": "no"
   },
   {
     "name": "Documents",
